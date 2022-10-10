@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Install packages with yay
+    become: yes
+    community.general.pacman:
+      name:
+        - git
+        - tmux
+        - newsboat
+        - rustup
+      state: present
+  - name: Install linters and formatters with npm
+    loop:
+      - eslint_d
+      - prettier
+    community.general.npm:
+      name: "{{ item }}"
+      global: true
+      state: present
+...
